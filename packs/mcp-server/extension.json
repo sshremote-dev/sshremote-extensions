@@ -1,0 +1,13 @@
+{
+  "id": "dev.sshremote.mcp-server",
+  "name": "MCP server",
+  "version": "1.0.0",
+  "api": 1,
+  "description": "`sshremote mcp`: SSH hosts' screens, keyboards and mice for AI agents, over MCP.",
+  "permissions": ["native"],
+  "programs": {
+    "windows-x86_64": "sshremote-mcp.exe",
+    "linux-x86_64": "sshremote-mcp"
+  },
+  "contributes": { "provides": ["mcp"] }
+}

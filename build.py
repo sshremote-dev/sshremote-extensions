@@ -22,7 +22,7 @@ def pack(src: Path, dest: Path) -> dict:
     m = json.loads((src / "extension.json").read_text(encoding="utf-8"))
     name = f"{m['id']}-{m['version']}.sshx"
     # Only what the manifest names goes in: not the sources or the build's leftovers.
-    named = ["extension.json"] + ([m["main"]] if m.get("main") else []) + [l["file"] for l in m.get("contributes", {}).get("layers", [])]
+    named = ["extension.json"] + ([m["main"]] if m.get("main") else []) + [l["file"] for l in m.get("contributes", {}).get("layers", [])] + list(m.get("programs", {}).values())
     files = sorted(src / f for f in named)
     with zipfile.ZipFile(dest / name, "w", zipfile.ZIP_DEFLATED) as z:
         for p in files:

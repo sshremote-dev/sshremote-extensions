@@ -1,0 +1,13 @@
+{
+  "id": "dev.sshremote.web-gateway",
+  "name": "Web gateway",
+  "version": "1.0.0",
+  "api": 1,
+  "description": "`sshremote web`: this computer's terminals and screens, and its SSH hosts', in a browser.",
+  "permissions": ["native"],
+  "programs": {
+    "windows-x86_64": "sshremote-web.exe",
+    "linux-x86_64": "sshremote-web"
+  },
+  "contributes": { "provides": ["web"] }
+}

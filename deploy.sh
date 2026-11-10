@@ -2,6 +2,7 @@
 # Builds sshremote.dev (page, downloads, signed registry) and uploads it to the web server.
 #   registry/deploy.sh [SSH-HOST] [WEB-ROOT]
 # Downloads are taken from $WINDOWS_BIN and $LINUX_BIN when set.
+# The native packs' programs come from $HELPERS (see registry/packs/web-gateway/make.py).
 set -eu
 HOST=${1:-ubuntu}
 ROOT=${2:-/var/www/sshremote.dev}
