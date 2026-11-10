@@ -1,7 +1,8 @@
 #!/bin/sh
 # Builds sshremote.dev (page, downloads, signed registry) and uploads it to the web server.
 #   registry/deploy.sh [SSH-HOST] [WEB-ROOT]
-# Downloads are taken from $WINDOWS_BIN and $LINUX_BIN when set.
+# Downloads are taken from $WINDOWS_BIN and $LINUX_BIN (SSH Remote) and $TERMINAL_WINDOWS_BIN and
+# $TERMINAL_LINUX_BIN (SSH Remote Terminal) when set.
 # The native packs' programs come from $HELPERS (see registry/packs/web-gateway/make.py).
 set -eu
 HOST=${1:-ubuntu}
@@ -14,6 +15,8 @@ trap 'rm -rf -- "$OUT"' EXIT
 set -- "$OUT"
 [ -n "${WINDOWS_BIN:-}" ] && set -- "$@" --download "sshremote-windows-x86_64.exe=$WINDOWS_BIN"
 [ -n "${LINUX_BIN:-}" ] && set -- "$@" --download "sshremote-linux-x86_64=$LINUX_BIN"
+[ -n "${TERMINAL_WINDOWS_BIN:-}" ] && set -- "$@" --download "sshremote-terminal-windows-x86_64.exe=$TERMINAL_WINDOWS_BIN"
+[ -n "${TERMINAL_LINUX_BIN:-}" ] && set -- "$@" --download "sshremote-terminal-linux-x86_64=$TERMINAL_LINUX_BIN"
 python "$HERE/build.py" "$@"
 
 INDEX="$OUT/registry/v1/index.json"

@@ -37,6 +37,8 @@ def pack(src: Path, dest: Path) -> dict:
         subprocess.run([sys.executable, "-I", str(src / "make.py"), str(src)], check=True)
     m = json.loads((src / "extension.json").read_text(encoding="utf-8"))
     offer = {"id": m["id"], "name": m.get("name", m["id"]), "version": m["version"], "description": m.get("description", "")}
+    if m.get("contributes", {}).get("provides"):
+        offer["provides"] = m["contributes"]["provides"]
     programs = m.get("programs", {})
     if not programs:
         return offer | write(src, dest, f"{m['id']}-{m['version']}.sshx", m, [])
