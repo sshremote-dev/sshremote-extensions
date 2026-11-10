@@ -1,0 +1,23 @@
+{
+  "id": "dev.sshremote.tech-styles",
+  "name": "Tech styles",
+  "version": "1.0.0",
+  "api": 1,
+  "description": "Radar, code rain, synthwave, circuit board, warp and network behind the terminals, each a picture and its animation.",
+  "contributes": {
+    "layers": [
+      { "file": "radar_motion.json", "label": "Radar: sweep and blips" },
+      { "file": "radar_still.json", "label": "Radar: screen", "still": true },
+      { "file": "matrix_motion.json", "label": "Code rain" },
+      { "file": "matrix_still.json", "label": "Code rain: dark green", "still": true },
+      { "file": "synthwave_motion.json", "label": "Synthwave: grid rushing on" },
+      { "file": "synthwave_still.json", "label": "Synthwave: neon sun and mountains", "still": true },
+      { "file": "circuit_motion.json", "label": "Circuit: running light" },
+      { "file": "circuit_still.json", "label": "Circuit board", "still": true },
+      { "file": "warp_motion.json", "label": "Warp: stars streaking" },
+      { "file": "warp_still.json", "label": "Deep space", "still": true },
+      { "file": "network_motion.json", "label": "Network: connections" },
+      { "file": "network_still.json", "label": "Network: globe", "still": true }
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "id": "dev.sshremote.nature-scenes",
+  "name": "Nature scenes",
+  "version": "1.0.0",
+  "api": 1,
+  "description": "Meadow, aurora and snowy evening behind the terminals, each a picture and its animation.",
+  "contributes": {
+    "layers": [
+      { "file": "meadow_motion.json", "label": "Meadow: flowers, clouds, butterflies" },
+      { "file": "meadow_still.json", "label": "Meadow: hills and sky", "still": true },
+      { "file": "aurora_motion.json", "label": "Aurora: waving lights" },
+      { "file": "aurora_still.json", "label": "Aurora: snowy peaks and frozen lake", "still": true },
+      { "file": "snow_motion.json", "label": "Snowy evening: falling snow" },
+      { "file": "snow_still.json", "label": "Snowy evening: cabin and pines", "still": true }
+    ]
+  }
+}
