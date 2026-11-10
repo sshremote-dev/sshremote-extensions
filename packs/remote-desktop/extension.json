@@ -1,7 +1,7 @@
 {
   "id": "dev.sshremote.remote-desktop",
   "name": "Remote desktop",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "api": 1,
   "description": "For SSH Remote Terminal (SSH Remote has it built in): see and operate SSH hosts' screens, move files both ways, chat and hear their sound; the agent hosts run for it, the terminal viewer (sshremote HOST) and the Windows service.",
   "permissions": ["native"],
