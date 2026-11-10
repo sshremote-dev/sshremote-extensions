@@ -1,0 +1,13 @@
+{
+  "id": "dev.sshremote.ocean",
+  "name": "Ocean",
+  "version": "1.0.0",
+  "api": 1,
+  "description": "A deep sea behind the terminals: light from the surface, rising bubbles, glinting plankton.",
+  "contributes": {
+    "layers": [
+      { "file": "ocean_motion.json", "label": "Ocean: bubbles and light" },
+      { "file": "ocean_still.json", "label": "Ocean: the deep sea", "still": true }
+    ]
+  }
+}
