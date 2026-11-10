@@ -1,19 +1,32 @@
 {
   "id": "dev.sshremote.ssh-tunnels",
   "name": "SSH tunnels",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "api": 2,
   "description": "The port forwards of your ~/.ssh/config hosts: start and stop them from a panel, see how many run in the status bar, and open a shell on their host.",
   "activation": "startup",
-  "permissions": ["native", "workspace.open"],
+  "permissions": [
+    "native",
+    "workspace.open"
+  ],
   "programs": {
     "windows-x86_64": "ssh-tunnels.exe",
     "linux-x86_64": "ssh-tunnels"
   },
   "contributes": {
     "commands": [
-      { "id": "show", "label": "Show the tunnels" },
-      { "id": "stop_all", "label": "Stop every tunnel" }
+      {
+        "id": "show",
+        "label": "Show the tunnels"
+      },
+      {
+        "id": "forward",
+        "label": "Forward a port"
+      },
+      {
+        "id": "stop_all",
+        "label": "Stop every tunnel"
+      }
     ]
   }
 }
