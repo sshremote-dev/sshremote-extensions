@@ -1,0 +1,13 @@
+{
+  "id": "dev.sshremote.remote-desktop",
+  "name": "Remote desktop",
+  "version": "1.0.0",
+  "api": 1,
+  "description": "See and operate SSH hosts' screens, move files both ways, chat and hear their sound; the agent hosts run for it, the terminal viewer (sshremote HOST) and the Windows service.",
+  "permissions": ["native"],
+  "programs": {
+    "windows-x86_64": "sshremote-remote.exe",
+    "linux-x86_64": "sshremote-remote"
+  },
+  "contributes": { "provides": ["remote"] }
+}
