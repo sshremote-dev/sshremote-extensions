@@ -16,24 +16,37 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 
 
+def write(src: Path, dest: Path, name: str, m: dict, programs: list) -> dict:
+    # Only what the manifest names goes in: not the sources or the build's leftovers.
+    named = ([m["main"]] if m.get("main") else []) + [l["file"] for l in m.get("contributes", {}).get("layers", [])] + programs
+    with zipfile.ZipFile(dest / name, "w", zipfile.ZIP_DEFLATED) as z:
+        # Fixed times: the same sources make the same package and checksum.
+        def put(path: str, data: bytes):
+            info = zipfile.ZipInfo(path, (2026, 1, 1, 0, 0, 0))
+            info.compress_type = zipfile.ZIP_DEFLATED
+            z.writestr(info, data)
+        put("extension.json", json.dumps(m, indent=2).encode())
+        for f in sorted(named):
+            put(f, (src / f).read_bytes())
+    data = (dest / name).read_bytes()
+    return {"url": name, "sha256": hashlib.sha256(data).hexdigest(), "size": len(data)}
+
+
 def pack(src: Path, dest: Path) -> dict:
     if (src / "make.py").exists():
         subprocess.run([sys.executable, "-I", str(src / "make.py"), str(src)], check=True)
     m = json.loads((src / "extension.json").read_text(encoding="utf-8"))
-    name = f"{m['id']}-{m['version']}.sshx"
-    # Only what the manifest names goes in: not the sources or the build's leftovers.
-    named = ["extension.json"] + ([m["main"]] if m.get("main") else []) + [l["file"] for l in m.get("contributes", {}).get("layers", [])] + list(m.get("programs", {}).values())
-    files = sorted(src / f for f in named)
-    with zipfile.ZipFile(dest / name, "w", zipfile.ZIP_DEFLATED) as z:
-        for p in files:
-            # Fixed times: the same sources make the same package and checksum.
-            info = zipfile.ZipInfo(p.relative_to(src).as_posix(), (2026, 1, 1, 0, 0, 0))
-            info.compress_type = zipfile.ZIP_DEFLATED
-            z.writestr(info, p.read_bytes())
-    data = (dest / name).read_bytes()
-    return {"id": m["id"], "name": m.get("name", m["id"]), "version": m["version"],
-            "description": m.get("description", ""), "url": name,
-            "sha256": hashlib.sha256(data).hexdigest(), "size": len(data)}
+    offer = {"id": m["id"], "name": m.get("name", m["id"]), "version": m["version"], "description": m.get("description", "")}
+    programs = m.get("programs", {})
+    if not programs:
+        return offer | write(src, dest, f"{m['id']}-{m['version']}.sshx", m, [])
+    # One package for each platform, with only its program.
+    offer["platforms"] = {}
+    for platform, file in programs.items():
+        one = m | {"programs": {platform: file}}
+        offer["platforms"][platform] = write(src, dest, f"{m['id']}-{m['version']}-{platform}.sshx", one, [file])
+    offer["size"] = max(p["size"] for p in offer["platforms"].values())
+    return offer
 
 
 def main():
