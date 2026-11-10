@@ -21,7 +21,9 @@ def pack(src: Path, dest: Path) -> dict:
         subprocess.run([sys.executable, "-I", str(src / "make.py"), str(src)], check=True)
     m = json.loads((src / "extension.json").read_text(encoding="utf-8"))
     name = f"{m['id']}-{m['version']}.sshx"
-    files = sorted(p for p in src.rglob("*") if p.is_file() and p.name != "make.py" and "__pycache__" not in p.parts)
+    # Only what the manifest names goes in: not the sources or the build's leftovers.
+    named = ["extension.json"] + ([m["main"]] if m.get("main") else []) + [l["file"] for l in m.get("contributes", {}).get("layers", [])]
+    files = sorted(src / f for f in named)
     with zipfile.ZipFile(dest / name, "w", zipfile.ZIP_DEFLATED) as z:
         for p in files:
             # Fixed times: the same sources make the same package and checksum.

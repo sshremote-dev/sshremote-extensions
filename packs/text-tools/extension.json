@@ -1,0 +1,18 @@
+{
+  "id": "dev.sshremote.text-tools",
+  "name": "Text tools",
+  "version": "1.0.0",
+  "api": 1,
+  "description": "Change the selected terminal text: upper or lower case, shell quoting, one line, Base64. The result is typed in as a paste.",
+  "main": "text_tools.wasm",
+  "permissions": ["terminal.selection", "terminal.write"],
+  "contributes": {
+    "commands": [
+      { "id": "upper", "label": "Upper case" },
+      { "id": "lower", "label": "Lower case" },
+      { "id": "quote", "label": "Quote for the shell" },
+      { "id": "join", "label": "Join into one line" },
+      { "id": "base64", "label": "Base64" }
+    ]
+  }
+}
