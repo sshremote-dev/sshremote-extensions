@@ -55,8 +55,7 @@ def details(src: Path, m: dict) -> dict:
          "commands": [x.get("label", x.get("id", "")) for x in c.get("commands", [])], "updated": updated(src)}
     if c.get("layers"):
         d["layers"] = [l.get("label", l["file"]) for l in c["layers"]]
-    # "premium" is a deliberate soft gate: only the app checks it, the package is not locked.
-    for k in ("icon", "homepage", "premium"):
+    for k in ("icon", "homepage"):
         if k in m:
             d[k] = m[k]
     return d
