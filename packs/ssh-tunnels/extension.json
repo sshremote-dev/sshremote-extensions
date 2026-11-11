@@ -1,9 +1,9 @@
 {
   "id": "dev.sshremote.ssh-tunnels",
   "name": "SSH tunnels",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "api": 2,
-  "description": "The port forwards of your ~/.ssh/config hosts: start and stop them from a panel, see how many run in the status bar, and open a shell on their host.",
+  "description": "Port forwards through your SSH hosts: make local, remote and SOCKS tunnels in a panel and keep them, or use those of ~/.ssh/config; start, stop, start with the app, and see how many run.",
   "activation": "startup",
   "permissions": [
     "native",
