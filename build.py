@@ -90,6 +90,8 @@ def main():
     for f in (HERE.parent / "site").iterdir():
         if f.is_file():
             shutil.copy(f, out / f.name)
+        elif f.is_dir():
+            shutil.copytree(f, out / f.name, dirs_exist_ok=True)
     args = sys.argv[2:]
     downloads = out / "download"
     downloads.mkdir(exist_ok=True)
