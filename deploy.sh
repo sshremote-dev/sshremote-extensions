@@ -3,7 +3,7 @@
 #   registry/deploy.sh [SSH-HOST] [WEB-ROOT]
 # Downloads are taken from $WINDOWS_BIN and $LINUX_BIN (SSH Remote) and $TERMINAL_WINDOWS_BIN and
 # $TERMINAL_LINUX_BIN (SSH Remote Terminal) when set.
-# The native packs' programs come from $HELPERS (see registry/packs/web-gateway/make.py).
+# The native packs' programs come from $HELPERS (see registry/helper_pack.py).
 set -eu
 HOST=${1:-ubuntu}
 ROOT=${2:-/var/www/sshremote.dev}

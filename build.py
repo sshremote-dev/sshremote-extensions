@@ -55,6 +55,7 @@ def details(src: Path, m: dict) -> dict:
          "commands": [x.get("label", x.get("id", "")) for x in c.get("commands", [])], "updated": updated(src)}
     if c.get("layers"):
         d["layers"] = [l.get("label", l["file"]) for l in c["layers"]]
+    # "premium" is a deliberate soft gate: only the app checks it, the package is not locked.
     for k in ("icon", "homepage", "premium"):
         if k in m:
             d[k] = m[k]
@@ -86,7 +87,7 @@ def main():
     reg = out / "registry" / "v1"
     reg.mkdir(parents=True, exist_ok=True)
     offers = [pack(d, reg) for d in sorted((HERE / "packs").iterdir()) if (d / "extension.json").exists()]
-    (reg / "index.json").write_text(json.dumps({"api": 1, "extensions": offers}, indent=1))
+    (reg / "index.json").write_text(json.dumps({"extensions": offers}, indent=1))
     for f in (HERE.parent / "site").iterdir():
         if f.is_file():
             shutil.copy(f, out / f.name)
