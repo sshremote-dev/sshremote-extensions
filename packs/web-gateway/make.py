@@ -1,4 +1,4 @@
-"""Puts this pack's programs beside it (see registry/helper_pack.py)."""
+"""Puts this pack's programs beside it (see helper_pack.py)."""
 import sys
 from pathlib import Path
 

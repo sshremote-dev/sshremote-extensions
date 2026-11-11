@@ -1,13 +1,11 @@
-"""Builds the static site for sshremote.dev: the page, the downloads and the extension registry.
+"""Builds the extension registry: each folder in packs/ with an extension.json becomes
+OUT/registry/v1/ID-VERSION.sshx (a make.py beside it runs first), and OUT/registry/v1/index.json
+lists them with their SHA-256. Signing and upload are the app repository's deploy script's.
 
-    python registry/build.py OUT [--download NAME=FILE ...]
-
-Each folder in registry/packs with an extension.json becomes OUT/registry/v1/ID-VERSION.sshx
-(a make.py beside it runs first), and OUT/registry/v1/index.json lists them with their SHA-256.
+    python build.py OUT
 """
 import hashlib
 import json
-import shutil
 import subprocess
 import sys
 import zipfile
@@ -87,25 +85,6 @@ def main():
     reg.mkdir(parents=True, exist_ok=True)
     offers = [pack(d, reg) for d in sorted((HERE / "packs").iterdir()) if (d / "extension.json").exists()]
     (reg / "index.json").write_text(json.dumps({"extensions": offers}, indent=1))
-    for f in (HERE.parent / "site").iterdir():
-        if f.is_file():
-            shutil.copy(f, out / f.name)
-        elif f.is_dir():
-            shutil.copytree(f, out / f.name, dirs_exist_ok=True)
-    args = sys.argv[2:]
-    downloads = out / "download"
-    downloads.mkdir(exist_ok=True)
-    files = []
-    for i, a in enumerate(args):
-        if a == "--download":
-            name, file = args[i + 1].split("=", 1)
-            shutil.copy(file, downloads / name)
-            data = (downloads / name).read_bytes()
-            files.append({"name": name, "size": len(data), "sha256": hashlib.sha256(data).hexdigest()})
-    # What the site's download section shows: the release and each file's size and checksum.
-    cargo = (HERE.parent / "Cargo.toml").read_text(encoding="utf-8").splitlines()
-    version = next((l.split('"')[1] for l in cargo if l.startswith("version")), "")
-    (downloads / "index.json").write_text(json.dumps({"version": version, "files": files}, indent=1))
     for o in offers:
         print(f"{o['id']} {o['version']} {o['size']} bytes")
 
