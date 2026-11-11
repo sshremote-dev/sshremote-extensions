@@ -11,6 +11,7 @@ import shutil
 import subprocess
 import sys
 import zipfile
+from datetime import date
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -32,6 +33,34 @@ def write(src: Path, dest: Path, name: str, m: dict, programs: list) -> dict:
     return {"url": name, "sha256": hashlib.sha256(data).hexdigest(), "size": len(data)}
 
 
+def kind(m: dict) -> str:
+    if m.get("programs"):
+        return "resident" if m.get("activation") == "startup" else "program"
+    return "script" if m.get("main") else "style pack"
+
+
+def updated(src: Path) -> str:
+    # The day the pack's folder last changed in git, so the same commit builds the same index.
+    try:
+        day = subprocess.run(["git", "log", "-1", "--format=%cs", "--", "."], cwd=src, capture_output=True, text=True).stdout.strip()
+    except OSError:
+        day = ""
+    return day or date.today().isoformat()
+
+
+def details(src: Path, m: dict) -> dict:
+    # Extra keys for the site; the app reads only the ones it knows.
+    c = m.get("contributes", {})
+    d = {"kind": kind(m), "permissions": m.get("permissions", []),
+         "commands": [x.get("label", x.get("id", "")) for x in c.get("commands", [])], "updated": updated(src)}
+    if c.get("layers"):
+        d["layers"] = [l.get("label", l["file"]) for l in c["layers"]]
+    for k in ("icon", "homepage", "premium"):
+        if k in m:
+            d[k] = m[k]
+    return d
+
+
 def pack(src: Path, dest: Path) -> dict:
     if (src / "make.py").exists():
         subprocess.run([sys.executable, "-I", str(src / "make.py"), str(src)], check=True)
@@ -39,6 +68,7 @@ def pack(src: Path, dest: Path) -> dict:
     offer = {"id": m["id"], "name": m.get("name", m["id"]), "version": m["version"], "description": m.get("description", "")}
     if m.get("contributes", {}).get("provides"):
         offer["provides"] = m["contributes"]["provides"]
+    offer |= details(src, m)
     programs = m.get("programs", {})
     if not programs:
         return offer | write(src, dest, f"{m['id']}-{m['version']}.sshx", m, [])
@@ -58,14 +88,22 @@ def main():
     offers = [pack(d, reg) for d in sorted((HERE / "packs").iterdir()) if (d / "extension.json").exists()]
     (reg / "index.json").write_text(json.dumps({"api": 1, "extensions": offers}, indent=1))
     for f in (HERE.parent / "site").iterdir():
-        shutil.copy(f, out / f.name)
+        if f.is_file():
+            shutil.copy(f, out / f.name)
     args = sys.argv[2:]
     downloads = out / "download"
     downloads.mkdir(exist_ok=True)
+    files = []
     for i, a in enumerate(args):
         if a == "--download":
             name, file = args[i + 1].split("=", 1)
             shutil.copy(file, downloads / name)
+            data = (downloads / name).read_bytes()
+            files.append({"name": name, "size": len(data), "sha256": hashlib.sha256(data).hexdigest()})
+    # What the site's download section shows: the release and each file's size and checksum.
+    cargo = (HERE.parent / "Cargo.toml").read_text(encoding="utf-8").splitlines()
+    version = next((l.split('"')[1] for l in cargo if l.startswith("version")), "")
+    (downloads / "index.json").write_text(json.dumps({"version": version, "files": files}, indent=1))
     for o in offers:
         print(f"{o['id']} {o['version']} {o['size']} bytes")
 
