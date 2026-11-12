@@ -1,7 +1,7 @@
 {
   "id": "dev.sshremote.web-gateway",
   "name": "Web gateway",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "api": 1,
   "description": "`sshremote web`: this computer's terminals and screens, and its SSH hosts', in a browser.",
   "permissions": ["native"],
