@@ -1,0 +1,21 @@
+{
+  "id": "dev.sshremote.web-apps",
+  "name": "Web apps",
+  "version": "1.0.0",
+  "api": 3,
+  "description": "Web apps in a pane beside your terminals and screens: translators, AI assistants, mail and notes. Each is a page of Chrome, Edge or Chromium run with no window of its own, its sign-ins kept apart from your browser's. Any other site opens the same way: type its https:// address.",
+  "contributes": {
+    "panes": [
+      { "id": "translate", "title": "Google Translate", "url": "https://translate.google.com", "description": "Translate text, documents and pages." },
+      { "id": "papago", "title": "Papago", "url": "https://papago.naver.com", "description": "Naver's translator, strong in Korean." },
+      { "id": "deepl", "title": "DeepL", "url": "https://www.deepl.com/translator", "description": "Translation that reads naturally." },
+      { "id": "claude", "title": "Claude", "url": "https://claude.ai", "description": "Anthropic's AI assistant." },
+      { "id": "chatgpt", "title": "ChatGPT", "url": "https://chatgpt.com", "description": "OpenAI's AI assistant." },
+      { "id": "gemini", "title": "Gemini", "url": "https://gemini.google.com", "description": "Google's AI assistant." },
+      { "id": "gmail", "title": "Gmail", "url": "https://mail.google.com", "description": "Mail beside your work." },
+      { "id": "calendar", "title": "Google Calendar", "url": "https://calendar.google.com", "description": "Your calendar beside your work." },
+      { "id": "keep", "title": "Google Keep", "url": "https://keep.google.com", "description": "Quick notes." },
+      { "id": "notion", "title": "Notion", "url": "https://www.notion.so", "description": "Notes and documents." }
+    ]
+  }
+}

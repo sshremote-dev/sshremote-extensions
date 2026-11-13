@@ -32,6 +32,8 @@ def write(src: Path, dest: Path, name: str, m: dict, programs: list) -> dict:
 
 
 def kind(m: dict) -> str:
+    if m.get("contributes", {}).get("panes"):
+        return "tools"
     if m.get("programs"):
         return "resident" if m.get("activation") == "startup" else "program"
     return "script" if m.get("main") else "style pack"
@@ -53,6 +55,8 @@ def details(src: Path, m: dict) -> dict:
          "commands": [x.get("label", x.get("id", "")) for x in c.get("commands", [])], "updated": updated(src)}
     if c.get("layers"):
         d["layers"] = [l.get("label", l["file"]) for l in c["layers"]]
+    if c.get("panes"):
+        d["panes"] = [p.get("title", p["id"]) for p in c["panes"]]
     for k in ("icon", "homepage"):
         if k in m:
             d[k] = m[k]
