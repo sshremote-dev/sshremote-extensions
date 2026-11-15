@@ -1,21 +1,90 @@
 {
   "id": "dev.sshremote.programs",
   "name": "Programs",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "api": 4,
-  "description": "This computer's everyday programs, each in a pane of its own beside your terminals and screens and shown alone there: the calculator, a text editor, the file manager, the system monitor and a terminal. Each is the one this computer has, found by its name; any other program opens from Tools, Open a program.",
+  "description": "Programs in panes, as Remote Desktop's RemoteApp: Open a program finds a computer's installed programs (this one from the home and Quick open, a computer you reach from its screen's menu) or takes a command line or a file, and shows that program alone in a pane of its own. Also this computer's everyday programs as tools: the calculator, a text editor, the file manager, the system monitor and a terminal, each the one this computer has, found by its name.",
   "contributes": {
+    "programs": true,
     "panes": [
-      { "id": "calculator", "title": "Calculator", "description": "Sums beside your work.",
-        "app": ["Calculator", "KCalc", "Galculator", "Qalculate!", "MATE Calculator"] },
-      { "id": "editor", "title": "Text editor", "description": "Notes and files as plain text.",
-        "app": ["Text Editor", "Notepad", "gedit", "Kate", "KWrite", "Mousepad", "Pluma", "FeatherPad", "Xed", "COSMIC Text Editor"] },
-      { "id": "files", "title": "Files", "description": "This computer's files and folders.",
-        "app": ["Files", "File Explorer", "Dolphin", "Thunar File Manager", "Caja", "Nemo", "PCManFM-Qt File Manager", "COSMIC Files"] },
-      { "id": "monitor", "title": "System monitor", "description": "What runs and what it takes.",
-        "app": ["System Monitor", "Task Manager", "Resources", "Mission Center", "KSysGuard", "Task Manager (Xfce)", "MATE System Monitor"] },
-      { "id": "terminal", "title": "Terminal", "description": "The system's own terminal, shown alone.",
-        "app": ["Terminal", "Windows Terminal", "Konsole", "Console", "Ptyxis", "GNOME Terminal", "Xfce Terminal", "MATE Terminal", "QTerminal", "COSMIC Terminal"] }
+      {
+        "id": "calculator",
+        "title": "Calculator",
+        "description": "Sums beside your work.",
+        "app": [
+          "Calculator",
+          "KCalc",
+          "Galculator",
+          "Qalculate!",
+          "MATE Calculator"
+        ]
+      },
+      {
+        "id": "editor",
+        "title": "Text editor",
+        "description": "Notes and files as plain text.",
+        "app": [
+          "Text Editor",
+          "Notepad",
+          "gedit",
+          "Kate",
+          "KWrite",
+          "Mousepad",
+          "Pluma",
+          "FeatherPad",
+          "Xed",
+          "COSMIC Text Editor"
+        ]
+      },
+      {
+        "id": "files",
+        "title": "Files",
+        "description": "This computer's files and folders.",
+        "app": [
+          "Files",
+          "File Explorer",
+          "Dolphin",
+          "Thunar File Manager",
+          "Caja",
+          "Nemo",
+          "PCManFM-Qt File Manager",
+          "COSMIC Files"
+        ]
+      },
+      {
+        "id": "monitor",
+        "title": "System monitor",
+        "description": "What runs and what it takes.",
+        "app": [
+          "System Monitor",
+          "Task Manager",
+          "Resources",
+          "Mission Center",
+          "KSysGuard",
+          "Task Manager (Xfce)",
+          "MATE System Monitor"
+        ]
+      },
+      {
+        "id": "terminal",
+        "title": "Terminal",
+        "description": "The system's own terminal, shown alone.",
+        "app": [
+          "Terminal",
+          "Windows Terminal",
+          "Konsole",
+          "Console",
+          "Ptyxis",
+          "GNOME Terminal",
+          "Xfce Terminal",
+          "MATE Terminal",
+          "QTerminal",
+          "COSMIC Terminal"
+        ]
+      }
     ]
-  }
+  },
+  "permissions": [
+    "programs"
+  ]
 }
