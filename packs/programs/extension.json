@@ -1,9 +1,9 @@
 {
   "id": "dev.sshremote.programs",
   "name": "Programs",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "api": 4,
-  "description": "Programs in panes, as Remote Desktop's RemoteApp, opened three ways: Search finds a computer's installed programs by name as the Start menu does, Command runs a command line as Run does, and File opens a file or a folder picked from its folders with its program. This computer's from the home and Quick open, a computer you reach from its screen's menu; each is shown alone in a pane of its own (on Windows and in X11 sessions this computer's program is its own window, held in the pane).",
+  "description": "Programs in panes, as Remote Desktop's RemoteApp, opened three ways: Search finds a computer's installed programs by name as the Start menu does, Command runs a command line as Run does, and File opens a file or a folder picked from its folders with its program. This computer's, from the home and Quick open only; each is shown alone in a pane of its own (on Windows, in X11 sessions, on GNOME, KDE Plasma, Sway and Hyprland its own window, held in the pane).",
   "contributes": {
     "programs": true
   },
