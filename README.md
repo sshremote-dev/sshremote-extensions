@@ -10,7 +10,7 @@ its own: raising its `version` and deploying publishes an update for it alone.
 | `text-tools` | Script (a Rust crate built to WebAssembly) |
 | `nature-scenes`, `ocean`, `tech-styles` | Style packs (Lottie backgrounds) |
 | `web-apps` | Tools: web apps in a pane |
-| `programs` | Tools: this computer's programs in a pane, shown alone (API 4) |
+| `programs` | Programs in panes, opened three ways: Search (as the Start menu), Command (as Run), File (API 4) |
 
 Screens, files, remote access, the web gateway, the MCP server and SSH tunnels are parts of the
 app itself, not extensions.
