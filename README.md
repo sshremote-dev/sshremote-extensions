@@ -26,3 +26,7 @@ repository beside it (`../sshremote-extensions`, or `$EXTENSIONS`).
 
 Writing your own extension: see `docs/extensions.md` in the app repository, or run
 `sshremote ext new my-tool`.
+
+## License
+
+MIT, see [LICENSE](LICENSE).
