@@ -1,7 +1,7 @@
 # SSH Remote extensions
 
 The extensions offered in the signed registry at https://sshremote.dev/registry/v1/ for
-[SSH Remote](https://github.com/thinkbigx/sshremote). Each folder in `packs/` is one extension
+[SSH Remote](https://github.com/sshremote-dev/sshremote). Each folder in `packs/` is one extension
 with its own `extension.json` (id, version, permissions, what it contributes) and is versioned on
 its own: raising its `version` and deploying publishes an update for it alone.
 
